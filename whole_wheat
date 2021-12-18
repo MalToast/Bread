@@ -1,0 +1,39 @@
+from datetime import date
+import calendar
+import random
+import os
+f = open("memories.txt", "a+")
+f.close()
+filesize = os.path.getsize("memories.txt")
+today_date = date.today()
+today = calendar.day_name[today_date.weekday()]
+print("Happy {day}! I hope things are going alright.".format(day = today))
+choice = input("Would you like to GIVE a memory, or RECEIVE a memory? Alternatively, I can remind you of EVERYTHING good that's happened so far")
+choice_corrected = choice.lower()
+if "give" in choice_corrected:
+    f = open("memories.txt", "a+")
+    memory = input("Tell me something good that happened today")
+    f.write(memory)
+    f.write('\n')
+    print("Thanks for sharing something good today")
+    f.close()
+elif filesize > 0 and "receive" in choice_corrected:
+    g = open("memories.txt", "r+")
+    memories = g.readlines()
+    decider = random.randint(1,len(memories))
+    print(memories[decider-1])
+    g.close()
+elif filesize > 0 and "everything" in choice_corrected:
+    h = open("memories.txt", "r+")
+    all_memories = h.readlines()
+    for i in all_memories:
+        print(i)
+    h.close()
+elif filesize == 0:
+    print("LOL LOOK AT THIS LOSER HE DOESN'T HAVE ANY GOOD MEMORIES")
+else:
+    print("hmmm I didn't quite get that")
+
+
+
+
